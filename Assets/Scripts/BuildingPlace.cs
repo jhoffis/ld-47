@@ -15,11 +15,14 @@ public class BuildingPlace : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        var mPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = new Vector3(mPos.x, mPos.y, 0);
+        Debug.Log(transform.position.ToString());
     }
 
     public void Create()
     {
         Debug.Log("CREATE");
+        
     }
 }
