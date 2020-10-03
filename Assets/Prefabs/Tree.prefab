@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5296202732984756347}
   m_Layer: 0
   m_Name: Tree
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 5296202733117631727}
   - component: {fileID: 5296202733117631721}
   - component: {fileID: 5296202733117631726}
+  - component: {fileID: 8512094994018935706}
   m_Layer: 0
   m_Name: summer_pine_tree_tiles_4
   m_TagString: Untagged
@@ -132,3 +133,16 @@ MonoBehaviour:
   - {fileID: -7367472007871177818, guid: cb7a4de063183c056810a704a5541765, type: 3}
   - {fileID: 258903730918635735, guid: cb7a4de063183c056810a704a5541765, type: 3}
   - {fileID: 2579653549909724940, guid: cb7a4de063183c056810a704a5541765, type: 3}
+--- !u!65 &8512094994018935706
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296202733117631724}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.53125, y: 0.84375, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}

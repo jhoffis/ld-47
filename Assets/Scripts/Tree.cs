@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Tree : MonoBehaviour
+public class Tree : MonoBehaviour, IInteractable
 {
     public TreeState treeState = TreeState.Sapling;
     public Sprite[] treeSprites;
@@ -22,9 +22,19 @@ public class Tree : MonoBehaviour
     private void Update()
     {
         _time += Time.deltaTime;
-        if (!(_time > 10) || treeState != TreeState.Sapling) return;
+        if (!(_time > 3) || treeState != TreeState.Sapling) return;
         _spriteRenderer.sprite = treeSprites[1];
         treeState = TreeState.Grown;
+    }
+
+
+    
+    public void Interact()
+    {
+        Debug.Log("Am being interacted with");
+        if (treeState != TreeState.Grown) return;
+        treeState = TreeState.ChoppedDown;
+        _spriteRenderer.sprite = treeSprites[2];
     }
 }
 
