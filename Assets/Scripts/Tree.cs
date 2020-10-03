@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Tree : MonoBehaviour
 {
@@ -9,29 +7,30 @@ public class Tree : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
 
-    
-    
-    
-    
+    private float _time;
+
+
     // Start is called before the first frame update
     private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _spriteRenderer.sprite = treeSprites[0];
+        _time = 0f;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (Time.realtimeSinceStartup > 10 && treeState == TreeState.Sapling)
-        {
-            _spriteRenderer.sprite = treeSprites[1];
-            treeState = TreeState.Grown;
-        }
+        _time += Time.deltaTime;
+        if (!(_time > 10) || treeState != TreeState.Sapling) return;
+        _spriteRenderer.sprite = treeSprites[1];
+        treeState = TreeState.Grown;
     }
 }
 
 public enum TreeState
 {
-    Sapling, Grown, ChoppedDown
+    Sapling,
+    Grown,
+    ChoppedDown
 }
