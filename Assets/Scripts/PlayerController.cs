@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,24 +22,17 @@ public class PlayerController : MonoBehaviour
             var nearest = FindNearbyObjects();
             if (nearest != null)
             {
-                var script = nearest.GetComponentInChildren(typeof(IInteractable)) as IInteractable;
-                script.Interact();
+                var script = nearest.GetComponent(typeof(IInteractable)) as IInteractable;
+                script?.Interact();
             }
         }
     }
 
     private Transform FindNearbyObjects()
     {
-        var colliders = Physics2D.OverlapCircleAll(this.transform.position, 1);
-        foreach (var collider in colliders)
-        {
-            if (collider.tag.Equals("Resource"))
-            {
-                Debug.Log("Found!!");
-                return collider.transform;
-            }
-        }
-        return null;
+        var results = new Collider2D[10];
+        var size = Physics2D.OverlapCircleNonAlloc(this.transform.position, 1,results );
+        return (from collider in results where collider.tag.Equals("Resource") || collider.tag.Equals("Building") select collider.transform).FirstOrDefault();
     }
 
     private void UpdateVelocity()
