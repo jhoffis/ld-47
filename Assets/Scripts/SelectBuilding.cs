@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SelectBuilding : MonoBehaviour
 {
-    public GameObject building;
+    public BuildingPlace building;
     private Button button;
     
     // Start is called before the first frame update
@@ -22,9 +22,9 @@ public class SelectBuilding : MonoBehaviour
 
     }
 
-    void PlaceBuildingOnMouse() {
-        
-        
+    void PlaceBuildingOnMouse()
+    {
+        building.Create();
     }
 
 }
