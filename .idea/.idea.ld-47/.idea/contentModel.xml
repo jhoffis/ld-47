@@ -9,6 +9,7 @@
         <e p="Scripts" t="Include">
           <e p="BuildingPlace.cs" t="Include" />
           <e p="IInteractable.cs" t="Include" />
+          <e p="IResource.cs" t="Include" />
           <e p="PlayerController.cs" t="Include" />
           <e p="SelectBuilding.cs" t="Include" />
           <e p="Tree.cs" t="Include" />

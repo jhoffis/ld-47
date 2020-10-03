@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -7,11 +9,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb2d;
     private Animator anim;
 
+    public Dictionary<string, int> resources;
+
 
 
     // Start is called before the first frame update
     private void Start()
     {
+        resources = new Dictionary<string, int>();
         _rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator> ();
     }
@@ -27,8 +32,20 @@ public class PlayerController : MonoBehaviour
             var nearest = FindNearbyObjects();
             if (nearest != null)
             {
-                var script = nearest.GetComponent(typeof(IInteractable)) as IInteractable;
-                script?.Interact();
+                if (nearest.tag.Equals("Resource"))
+                {
+                    var script = nearest.GetComponent(typeof(IResource)) as IResource;
+                    if (script == null)
+                    {
+                        Debug.Log("Missing script on Resource, or Resource does not implement IResource");
+                        return;
+                    }
+                    var type = script.GetType().ToString();
+                    if(!resources.ContainsKey(type)) resources.Add(type, 0);
+                    resources[type] += script.Collect();
+                    Debug.Log("Total amount of " + type + " is: " + resources[type]);
+                }
+                
             }
         }
     }

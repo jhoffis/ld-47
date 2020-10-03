@@ -20,13 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="893a57a0-0e2f-4a97-8f12-6e1f52b85f65" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Animations.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Animations/Player.controller" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Animations/Player.controller.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Animations/PlayerWalk.anim" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Animations/PlayerWalk.anim.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/walking-12px.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/walking-12px.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/IResource.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ld-47/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ld-47/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ld-47/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ld-47/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tree.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Tree.cs" afterDir="false" />
@@ -41,13 +36,15 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/IInteractable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/IResource.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/IInteractable.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Tree.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/IResource.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Tree.cs" />
       </list>
     </option>
   </component>
@@ -96,7 +93,7 @@
       <updated>1601725206365</updated>
       <workItem from="1601725210005" duration="7000" />
       <workItem from="1601725296413" duration="7551000" />
-      <workItem from="1601741007226" duration="2843000" />
+      <workItem from="1601741007226" duration="4102000" />
     </task>
     <servers />
   </component>
@@ -122,6 +119,10 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="624" y="252" key="run.anything.popup" timestamp="1601745612319">
+      <screen x="0" y="26" width="1920" height="1054" />
+    </state>
+    <state x="624" y="252" key="run.anything.popup/0.26.1920.1054/1920.0.1920.1080@0.26.1920.1054" timestamp="1601745612319" />
     <state x="623" y="258" width="672" height="678" key="search.everywhere.popup" timestamp="1601730676808">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>

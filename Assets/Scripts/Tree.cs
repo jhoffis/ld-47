@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Tree : MonoBehaviour, IInteractable
+public class Tree : MonoBehaviour, IResource
 {
     public TreeState treeState = TreeState.Sapling;
     public Sprite[] treeSprites;
@@ -17,7 +17,7 @@ public class Tree : MonoBehaviour, IInteractable
     // Start is called before the first frame update
     private void Start()
     {
-        _growTime = Random.Range(20f, 100f);
+        _growTime = Random.Range(5f, 100f);
         
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _spriteRenderer.sprite = treeSprites[0];
@@ -46,13 +46,20 @@ public class Tree : MonoBehaviour, IInteractable
         }
     }
 
+    public ResourceType GetType()
+    {
+        return ResourceType.TIMBER;
+    }
 
-    public void Interact()
+
+    public int Collect()
     {
         Debug.Log("Am being interacted with");
-        if (treeState != TreeState.Grown) return;
+
+        if (treeState != TreeState.Grown) return 0;
         treeState = TreeState.ChoppedDown;
         _spriteRenderer.sprite = treeSprites[2];
+        return Random.Range(3, 5);
     }
 }
 
