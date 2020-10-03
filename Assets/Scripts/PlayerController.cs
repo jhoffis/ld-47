@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 _velocity = Vector2.zero;
     private Rigidbody2D _rb2d;
 
+
+
     // Start is called before the first frame update
     private void Start()
     {
