@@ -20,6 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="893a57a0-0e2f-4a97-8f12-6e1f52b85f65" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Animations.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Animations/Player.controller" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Animations/Player.controller.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Animations/PlayerWalk.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Animations/PlayerWalk.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/walking-12px.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/walking-12px.png.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ld-47/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ld-47/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tree.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Tree.cs" afterDir="false" />
@@ -39,8 +46,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/IInteractable.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Tree.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" />
       </list>
     </option>
   </component>
@@ -89,7 +96,7 @@
       <updated>1601725206365</updated>
       <workItem from="1601725210005" duration="7000" />
       <workItem from="1601725296413" duration="7551000" />
-      <workItem from="1601741007226" duration="1969000" />
+      <workItem from="1601741007226" duration="2843000" />
     </task>
     <servers />
   </component>

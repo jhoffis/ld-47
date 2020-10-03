@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class Tree : MonoBehaviour, IInteractable
@@ -13,7 +12,7 @@ public class Tree : MonoBehaviour, IInteractable
 
     private float _growTime;
 
-    private float _deathClock = 0f;
+    private float _deathClock;
 
     // Start is called before the first frame update
     private void Start()

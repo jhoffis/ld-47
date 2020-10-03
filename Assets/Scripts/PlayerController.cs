@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     private Vector2 _velocity = Vector2.zero;
     private Rigidbody2D _rb2d;
+    private Animator anim;
 
 
 
@@ -12,11 +13,13 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _rb2d = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator> ();
     }
 
     private void Update()
     {
         UpdateVelocity();
+        anim.SetFloat("speed", _velocity.magnitude);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
