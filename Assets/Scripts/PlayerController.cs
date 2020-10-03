@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     {
         _rb2d = GetComponent<Rigidbody2D>();
     }
-    
+
     private void Update()
     {
         UpdateVelocity();
@@ -31,8 +31,14 @@ public class PlayerController : MonoBehaviour
     private Transform FindNearbyObjects()
     {
         var results = new Collider2D[10];
-        var size = Physics2D.OverlapCircleNonAlloc(this.transform.position, 1,results );
-        return (from collider in results where collider.tag.Equals("Resource") || collider.tag.Equals("Building") select collider.transform).FirstOrDefault();
+        var size = Physics2D.OverlapCircleNonAlloc(this.transform.position, 1, results);
+        return size == 0
+            ? null
+            : (from resultCollider in results
+                where resultCollider != null
+                let colliderTag = resultCollider.tag
+                where colliderTag != null && (colliderTag.Equals("Resource") || colliderTag.Equals("Building"))
+                select resultCollider.transform).FirstOrDefault();
     }
 
     private void UpdateVelocity()
@@ -45,10 +51,8 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs(newVelocity.magnitude - _velocity.magnitude) > Mathf.Epsilon)
         {
             _velocity = newVelocity;
-            
         }
+
         _rb2d.velocity = _velocity;
     }
-
- 
 }
