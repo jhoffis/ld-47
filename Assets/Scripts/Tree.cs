@@ -48,7 +48,7 @@ public class Tree : MonoBehaviour, IResource
 
     public ResourceType GetType()
     {
-        return ResourceType.TIMBER;
+        return ResourceType.Timber;
     }
 
 

@@ -80,6 +80,8 @@ public class BuildingObject : MonoBehaviour, IInteractable
                 break;
             case InteractType.TAKE:
                 _buildingInfo.Take(unit);
+                if (_buildingInfo.IsBroken())
+                    Destroy(gameObject);
                 break;
             default:
                 break;

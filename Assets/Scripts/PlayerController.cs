@@ -22,9 +22,10 @@ public class PlayerController : MonoBehaviour, IUnit
         _rb2d = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
 
-        Resources.Add(ResourceType.TIMBER, 0);
-        Resources.Add(ResourceType.MONEY, 0);
-        Resources.Add(ResourceType.IRON, 0);
+        foreach (ResourceType resourceType in Enum.GetValues(typeof(ResourceType)))
+        {
+            Resources.Add(resourceType, 0);
+        }
     }
 
     public void AddUIUpdate(Action action)
@@ -77,7 +78,11 @@ public class PlayerController : MonoBehaviour, IUnit
                             return;
                         }
 
-                        buildingScript.Interact(this, InteractType.GIVE);
+                        var interactType = (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                            ? InteractType.TAKE
+                            : InteractType.GIVE;
+                        
+                        buildingScript.Interact(this, interactType);
 
                         break;
                 }

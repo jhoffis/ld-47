@@ -8,8 +8,7 @@ public interface IResource
 
     int Collect();
 }
-
 public enum ResourceType
 {
-    TIMBER, IRON, MONEY
+    Timber, Iron, Gold, Food, Wool
 }

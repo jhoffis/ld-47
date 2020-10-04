@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class TraderController : MonoBehaviour, IUnit
 {
-    public BuildingType buildingType;
+    public ResourceType resourceType;
 
     private float _timer;
 
@@ -107,7 +108,7 @@ public class TraderController : MonoBehaviour, IUnit
                     var buildingTransform = resultCollider.transform;
 
                     var script = buildingTransform.GetComponent(typeof(BuildingObject)) as BuildingObject;
-                    if (script != null && script.GetBuildingInfo().GetBuildingType() == buildingType)
+                    if (script != null && script.GetBuildingInfo().GetResourceType() == resourceType)
                     {
                         targetBuilding = buildingTransform;
                         return;
