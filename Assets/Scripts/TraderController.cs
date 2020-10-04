@@ -22,35 +22,52 @@ public class TraderController : MonoBehaviour
         speed = Random.Range(1f, 2f);
     }
 
+    void MoveTowards(Vector3 target)
+    {
+        var step = speed * Time.deltaTime; // calculate distance to move
+        transform.position = Vector3.MoveTowards(transform.position, target, step);
+    }
+
 
     // Update is called once per frame
     void Update()
     {
         _timer += Time.deltaTime;
-        if ((((int) _timer) / 10) % 3 == 0)
+        if (_timer > 150)
         {
-            // Look for buildings
-            var results = new Collider2D[10];
-            var size = Physics2D.OverlapCircleNonAlloc(this.transform.position, 1, results);
-            if (targetBuilding == null)
+            MoveTowards(new Vector3(50f, 0f));
+            if (Mathf.Abs(transform.position.x - 50f) < Mathf.Epsilon)
             {
-                FindNearestBuilding();
-            }
-            else
-            {
-                MoveTowardsBuilding();
+                Destroy(gameObject);
             }
         }
         else
         {
-            // Walk like a robot
-            var step = speed * Time.deltaTime; // calculate distance to move
-            if ((randomTargetPos - (Vector2) transform.position).magnitude < 0.01)
+            if ((((int) _timer) / 10) % 3 == 0)
             {
-                randomTargetPos = new Vector2(Random.Range(-10f, 10f), Random.Range(-10f, 10f));
+                // Look for buildings
+                var results = new Collider2D[10];
+                var size = Physics2D.OverlapCircleNonAlloc(this.transform.position, 1, results);
+                if (targetBuilding == null)
+                {
+                    FindNearestBuilding();
+                }
+                else
+                {
+                    MoveTowardsBuilding();
+                }
             }
+            else
+            {
+                // Walk like a robot
+                var step = speed * Time.deltaTime; // calculate distance to move
+                if ((randomTargetPos - (Vector2) transform.position).magnitude < 0.01)
+                {
+                    randomTargetPos = new Vector2(Random.Range(-10f, 10f), Random.Range(-10f, 10f));
+                }
 
-            transform.position = Vector3.MoveTowards(transform.position, randomTargetPos, step);
+                transform.position = Vector3.MoveTowards(transform.position, randomTargetPos, step);
+            }
         }
     }
 

@@ -27,6 +27,15 @@ public class PlayerController : MonoBehaviour, IUnit
         UpdateVelocity();
         _anim.SetFloat("speed", _velocity.magnitude);
 
+        if (_rb2d.velocity.x < -Mathf.Epsilon)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (_rb2d.velocity.x > Mathf.Epsilon)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             // Find all interactable objects nearby
@@ -55,11 +64,11 @@ public class PlayerController : MonoBehaviour, IUnit
                             Debug.Log("Missing script on Building");
                             return;
                         }
+
                         buildingScript.Interact(this, InteractType.GIVE);
 
                         break;
                 }
-
             }
         }
     }
