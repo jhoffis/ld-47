@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SelectBuilding : MonoBehaviour
 {
-    public BuildingPlace building;
+    public BuildingPlace building; // referance point
     private Button button;
     
     // Start is called before the first frame update
@@ -24,8 +24,7 @@ public class SelectBuilding : MonoBehaviour
 
     void PlaceBuildingOnMouse()
     {
-        building.Create();
-        Instantiate(building, new Vector3(0, 0, 0), Quaternion.identity);
+        building.Create(0); // FIXME add more buildings than just one
     }
 
 }
