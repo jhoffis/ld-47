@@ -23,4 +23,5 @@ public class BuildingInfoTimberHouse : IBuildingInfo
         Debug.Log(unit.addResource(ResourceType.TIMBER, takes));
         amount -= takes;
     }
+
 }
