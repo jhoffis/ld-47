@@ -55,12 +55,12 @@ public class BuildingPlace : MonoBehaviour, IInteractable
     {
         interact = true;
         var boxCollider = gameObject.AddComponent<BoxCollider2D>();
-        float spaceAbovePlayersHeight = 0.45f; //FIXME hent ut skikkelig verdi. Dette er slik at spilleren kan "gå helt opp til bygningen"
-        boxCollider.size = new Vector2(1f,1f - spaceAbovePlayersHeight);
-        boxCollider.offset = new Vector2(0, spaceAbovePlayersHeight / 2.3f);
+        float playersHeight = 0.45f; //FIXME hent ut skikkelig verdi. Dette er slik at spilleren kan "gå helt opp til bygningen"
+        boxCollider.size = new Vector2(1f,1f - playersHeight);
+        boxCollider.offset = new Vector2(0, playersHeight / 2.3f);
     }
 
-    public void Interact()
+    public void Interact(IUnit unit)
     {
         if (!interact) return;
         throw new System.NotImplementedException();
