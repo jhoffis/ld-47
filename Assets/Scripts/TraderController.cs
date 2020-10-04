@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class TraderController : MonoBehaviour
+public class TraderController : MonoBehaviour, IUnit
 {
     public BuildingType buildingType;
 
@@ -15,6 +15,8 @@ public class TraderController : MonoBehaviour
     private Vector2 randomTargetPos = Vector2.zero;
 
     private float speed;
+
+    private bool hasInteracted = false;
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +56,23 @@ public class TraderController : MonoBehaviour
                 }
                 else
                 {
-                    MoveTowardsBuilding();
+                    if (Mathf.Abs(Vector2.Distance(transform.position, targetBuilding.position)) < 1)
+                    {
+                        if (!hasInteracted)
+                        {
+                            var script = targetBuilding.GetComponent(typeof(BuildingObject)) as BuildingObject;
+                            if (script != null)
+                            {
+                                script.Interact(this, InteractType.GIVE);
+                                Debug.Log("Did something");
+                                hasInteracted = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MoveTowards(targetBuilding.position);
+                    }
                 }
             }
             else
@@ -97,5 +115,15 @@ public class TraderController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public int addHealth(int amount)
+    {
+        throw new NotImplementedException();
+    }
+
+    public int addResource(ResourceType resourceType, int amount)
+    {
+        return 5;
     }
 }

@@ -5,11 +5,12 @@ using UnityEngine;
 public class BuildingTimberHouse : IBuildingInfo
 {
     private int maxCapacity = 100;
-    private int amount = 0;
+    private int _amount = 0;
     public void Give(IUnit unit)
     {
         unit.addResource(ResourceType.TIMBER, -10);
-        amount += 10;
+        _amount += 10;
+        Debug.Log(_amount);
     }
 
     public void Take(IUnit unit)
