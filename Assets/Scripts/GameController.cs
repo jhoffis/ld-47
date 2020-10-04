@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
     public PlayerController playerController;
 
     private long _nextTreeTime;
-=
+
     private Random ran = new Random();
     private void Awake()
     {
