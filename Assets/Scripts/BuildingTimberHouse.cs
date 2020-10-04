@@ -8,7 +8,8 @@ public class BuildingTimberHouse : IBuilding
     private int amount = 0;
     public void Give(IUnit unit)
     {
-        throw new System.NotImplementedException();
+        unit.addResource(ResourceType.TIMBER, -10);
+        amount += 10;
     }
 
     public void Take(IUnit unit)

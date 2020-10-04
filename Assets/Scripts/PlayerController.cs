@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IUnit
 {
     private Vector2 _velocity = Vector2.zero;
     private Rigidbody2D _rb2d;
@@ -33,20 +33,33 @@ public class PlayerController : MonoBehaviour
             var nearest = FindNearbyObjects();
             if (nearest != null)
             {
-                if (nearest.tag.Equals("Resource"))
+                switch (nearest.tag)
                 {
-                    var script = nearest.GetComponent(typeof(IResource)) as IResource;
-                    if (script == null)
-                    {
-                        Debug.Log("Missing script on Resource, or Resource does not implement IResource");
-                        return;
-                    }
+                    case "Resource":
+                        var script = nearest.GetComponent(typeof(IResource)) as IResource;
+                        if (script == null)
+                        {
+                            Debug.Log("Missing script on Resource, or Resource does not implement IResource");
+                            return;
+                        }
 
-                    var type = script.GetType().ToString();
-                    if (!Resources.ContainsKey(type)) Resources.Add(type, 0);
-                    Resources[type] += script.Collect();
-                    Debug.Log("Total amount of " + type + " is: " + Resources[type]);
+                        var type = script.GetType().ToString();
+                        if (!Resources.ContainsKey(type)) Resources.Add(type, 0);
+                        Resources[type] += script.Collect();
+                        Debug.Log("Total amount of " + type + " is: " + Resources[type]);
+                        break;
+                    case "Building":
+                        var buildingScript = nearest.GetComponent(typeof(BuildingPlace)) as BuildingPlace;
+                        if (buildingScript == null)
+                        {
+                            Debug.Log("Missing script on Building");
+                            return;
+                        }
+                        buildingScript.Interact(this, InteractType.GIVE);
+
+                        break;
                 }
+
             }
         }
     }
@@ -77,5 +90,15 @@ public class PlayerController : MonoBehaviour
         }
 
         _rb2d.velocity = _velocity;
+    }
+
+    public int addHealth(int amount)
+    {
+        throw new NotImplementedException();
+    }
+
+    public int addResource(ResourceType resourceType, int amount)
+    {
+        throw new NotImplementedException();
     }
 }

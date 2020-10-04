@@ -76,11 +76,9 @@ public class BuildingPlace : MonoBehaviour, IInteractable
         switch (interactType)
         {
             case InteractType.GIVE:
-                Debug.Log("gi meg ting");
                 _building.Give(unit);
                 break;
             case InteractType.TAKE:
-                Debug.Log("ta ting");
                 _building.Take(unit);
                 break;
             default:
@@ -105,6 +103,7 @@ public class BuildingPlace : MonoBehaviour, IInteractable
         interact = true;
         gameObject.layer = 0;
         renderer.sortingOrder = 0;
+        gameObject.tag = "Building";
         ChangeColor(1f, 1f, 1f, 1f);
 
         var boxCollider = gameObject.AddComponent<BoxCollider2D>();
