@@ -65,6 +65,11 @@ public class BuildingPlace : MonoBehaviour, IInteractable
         Debug.Log("Check building id: " + newOne.Equals(this));
     }
 
+    public IBuilding GetBuildingInfo()
+    {
+        return _building;
+    }
+
     public void Interact(IUnit unit, InteractType interactType)
     {
         if (!interact) return;

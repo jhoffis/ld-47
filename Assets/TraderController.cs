@@ -65,8 +65,8 @@ public class TraderController : MonoBehaviour
                 {
                     var buildingTransform = resultCollider.transform;
 
-                    var script = buildingTransform.GetComponent(typeof(IBuilding)) as IBuilding;
-                    if (script?.GetBuildingType() == buildingType)
+                    var script = buildingTransform.GetComponent(typeof(BuildingPlace)) as BuildingPlace;
+                    if (script != null && script.GetBuildingInfo().GetBuildingType() == buildingType)
                     {
                         targetBuilding = buildingTransform;
                     }
