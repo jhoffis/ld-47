@@ -12,12 +12,14 @@ public class TraderController : MonoBehaviour
 
     private Transform targetBuilding;
 
+    private Vector2 randomTargetPos = Vector2.zero;
+
     private float speed;
 
     // Start is called before the first frame update
     void Start()
     {
-        speed = Random.Range(2f, 5f);
+        speed = Random.Range(1f, 2f);
     }
 
 
@@ -25,7 +27,7 @@ public class TraderController : MonoBehaviour
     void Update()
     {
         _timer += Time.deltaTime;
-        if ((((int) _timer) / 10) % 10 == 0)
+        if ((((int) _timer) / 10) % 3 == 0)
         {
             // Look for buildings
             var results = new Collider2D[10];
@@ -43,8 +45,12 @@ public class TraderController : MonoBehaviour
         {
             // Walk like a robot
             var step = speed * Time.deltaTime; // calculate distance to move
-            var target = new Vector2(Random.Range(-10f, 10f), Random.Range(-10f, 10f));
-            transform.position = Vector3.MoveTowards(transform.position, target, step);
+            if ((randomTargetPos - (Vector2) transform.position).magnitude < 0.01)
+            {
+                randomTargetPos = new Vector2(Random.Range(-10f, 10f), Random.Range(-10f, 10f));
+            }
+
+            transform.position = Vector3.MoveTowards(transform.position, randomTargetPos, step);
         }
     }
 
@@ -65,10 +71,11 @@ public class TraderController : MonoBehaviour
                 {
                     var buildingTransform = resultCollider.transform;
 
-                    var script = buildingTransform.GetComponent(typeof(BuildingPlace)) as BuildingPlace;
+                    var script = buildingTransform.GetComponent(typeof(BuildingObject)) as BuildingObject;
                     if (script != null && script.GetBuildingInfo().GetBuildingType() == buildingType)
                     {
                         targetBuilding = buildingTransform;
+                        return;
                     }
                 }
             }

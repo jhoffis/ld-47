@@ -24,4 +24,8 @@ public class BuildingInfoTimberHouse : IBuildingInfo
         amount -= takes;
     }
 
+    public BuildingType GetBuildingType()
+    {
+        return BuildingType.Timber;
+    }
 }
