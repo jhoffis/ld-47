@@ -13,4 +13,8 @@ public class BuildingTimberHouse : IBuilding
     {
         throw new System.NotImplementedException();
     }
+    public BuildingType GetBuildingType()
+    {
+        return BuildingType.Timber;
+    }
 }
