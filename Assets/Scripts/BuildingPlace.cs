@@ -8,6 +8,8 @@ using Debug = UnityEngine.Debug;
 
 public class BuildingPlace : MonoBehaviour, IInteractable
 {
+    public static readonly string[] BuildingNames = { "Wood House" };
+    
     private int type; // Bygning å vise og hente ut
     private bool interact;
     private SpriteRenderer renderer;
@@ -52,6 +54,10 @@ public class BuildingPlace : MonoBehaviour, IInteractable
     private void TurnInteractable()
     {
         interact = true;
+        var boxCollider = gameObject.AddComponent<BoxCollider2D>();
+        float spaceAbovePlayersHeight = 0.45f; //FIXME hent ut skikkelig verdi. Dette er slik at spilleren kan "gå helt opp til bygningen"
+        boxCollider.size = new Vector2(1f,1f - spaceAbovePlayersHeight);
+        boxCollider.offset = new Vector2(0, spaceAbovePlayersHeight / 2.3f);
     }
 
     public void Interact()
