@@ -6,25 +6,21 @@ using UnityEngine.UI;
 
 public class SelectBuilding : MonoBehaviour
 {
-    public BuildingObject building; // referance point
-    private Button button;
-    
+    public int BuildingType;
+    private BuildingObject _buildingReference;
+    private Button _button;
+
     // Start is called before the first frame update
     void Start()
     {
-	    button = gameObject.GetComponent(typeof(Button)) as Button;        
-        button.onClick.AddListener(PlaceBuildingOnMouse);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        _buildingReference = Resources.Load<BuildingObject>("Prefabs/BuildingReferencePoint");
+	    _button = gameObject.GetComponent(typeof(Button)) as Button;        
+        _button.onClick.AddListener(PlaceBuildingOnMouse);
     }
 
     void PlaceBuildingOnMouse()
     {
-        building.Create(0); // FIXME add more buildings than just one
+        _buildingReference.Create(BuildingType); // FIXME add more buildings than just one
     }
 
 }
