@@ -7,24 +7,25 @@ public class PlayerController : MonoBehaviour
 {
     private Vector2 _velocity = Vector2.zero;
     private Rigidbody2D _rb2d;
-    private Animator anim;
+    private Animator _anim;
 
-    public Dictionary<string, int> resources;
+    public int speed;
 
+    public Dictionary<string, int> Resources;
 
 
     // Start is called before the first frame update
     private void Start()
     {
-        resources = new Dictionary<string, int>();
+        Resources = new Dictionary<string, int>();
         _rb2d = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator> ();
+        _anim = GetComponent<Animator>();
     }
 
     private void Update()
     {
         UpdateVelocity();
-        anim.SetFloat("speed", _velocity.magnitude);
+        _anim.SetFloat("speed", _velocity.magnitude);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -40,12 +41,12 @@ public class PlayerController : MonoBehaviour
                         Debug.Log("Missing script on Resource, or Resource does not implement IResource");
                         return;
                     }
+
                     var type = script.GetType().ToString();
-                    if(!resources.ContainsKey(type)) resources.Add(type, 0);
-                    resources[type] += script.Collect();
-                    Debug.Log("Total amount of " + type + " is: " + resources[type]);
+                    if (!Resources.ContainsKey(type)) Resources.Add(type, 0);
+                    Resources[type] += script.Collect();
+                    Debug.Log("Total amount of " + type + " is: " + Resources[type]);
                 }
-                
             }
         }
     }
@@ -66,8 +67,8 @@ public class PlayerController : MonoBehaviour
     private void UpdateVelocity()
     {
         _velocity = _rb2d.velocity;
-        var deltaX = Input.GetAxis("Horizontal");
-        var deltaY = Input.GetAxis("Vertical");
+        var deltaX = Input.GetAxis("Horizontal") * speed;
+        var deltaY = Input.GetAxis("Vertical") * speed;
         var newVelocity = new Vector2(deltaX, deltaY);
 
         if (Mathf.Abs(newVelocity.magnitude - _velocity.magnitude) > Mathf.Epsilon)
