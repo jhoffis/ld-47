@@ -2,17 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.XR.WSA.Input;
 using Debug = UnityEngine.Debug;
 
 public class BuildingPlace : MonoBehaviour, IInteractable
 {
-    public static readonly string[] BuildingNames = { "Wood House" };
-    
+    public static readonly string[] BuildingNames = { "Timber House" };
+
     private int type; // Bygning å vise og hente ut
     private bool interact;
     private SpriteRenderer renderer;
+    private IBuilding _building;
 
     public void Init(int type)
     {
@@ -51,18 +54,49 @@ public class BuildingPlace : MonoBehaviour, IInteractable
         Debug.Log("Check building id: " + newOne.Equals(this));
     }
 
+    public void Interact(IUnit unit, InteractType interactType)
+    {
+        if (!interact) return;
+        switch (interactType)
+        {
+            case InteractType.GIVE:
+                Debug.Log("gi meg ting");
+                _building.Give(unit);
+                break;
+            case InteractType.TAKE:
+                Debug.Log("ta ting");
+                _building.Take(unit);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public string GetName()
+    {
+        return BuildingNames[type];
+    }
+
+    public string GetNameWithoutWhitespace()
+    {
+        return new string(GetName().ToCharArray()
+            .Where(c => !Char.IsWhiteSpace(c))
+            .ToArray());
+    }
+
     private void TurnInteractable()
     {
         interact = true;
         var boxCollider = gameObject.AddComponent<BoxCollider2D>();
         float playersHeight = 0.45f; //FIXME hent ut skikkelig verdi. Dette er slik at spilleren kan "gå helt opp til bygningen"
         boxCollider.size = new Vector2(1f,1f - playersHeight);
-        boxCollider.offset = new Vector2(0, playersHeight / 2.3f);
+        boxCollider.offset = new Vector2(0, playersHeight / 2.3f);    
+
+        var typeClass = Type.GetType("Building" + GetNameWithoutWhitespace());
+        if (typeClass == null)
+            throw new Exception("COULD NOT FIND CLASS");
+        
+        _building = Activator.CreateInstance(typeClass, false) as IBuilding;
     }
 
-    public void Interact(IUnit unit)
-    {
-        if (!interact) return;
-        throw new System.NotImplementedException();
-    }
 }
