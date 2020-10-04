@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IBuilding
+public interface IBuildingInfo
 {
     // Unit tar eller gir, ikke bygning som tar eller gir.
     void Give(IUnit unit);

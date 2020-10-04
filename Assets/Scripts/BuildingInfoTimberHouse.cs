@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingTimberHouse : IBuilding
+public class BuildingInfoTimberHouse : IBuildingInfo
 {
     private int maxCapacity = 100;
     private int amount = 0;

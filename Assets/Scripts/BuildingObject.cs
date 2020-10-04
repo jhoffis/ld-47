@@ -9,14 +9,14 @@ using UnityEngine.EventSystems;
 using UnityEngine.XR.WSA.Input;
 using Debug = UnityEngine.Debug;
 
-public class BuildingPlace : MonoBehaviour, IInteractable
+public class BuildingObject : MonoBehaviour, IInteractable
 {
     public static readonly string[] BuildingNames = { "Timber House" };
 
     private int type; // Bygning å vise og hente ut
     private bool interact;
     private SpriteRenderer renderer;
-    private IBuilding _building;
+    private IBuildingInfo _buildingInfo;
     private Color originalColor;
 
     public void Init(int type)
@@ -71,10 +71,10 @@ public class BuildingPlace : MonoBehaviour, IInteractable
         switch (interactType)
         {
             case InteractType.GIVE:
-                _building.Give(unit);
+                _buildingInfo.Give(unit);
                 break;
             case InteractType.TAKE:
-                _building.Take(unit);
+                _buildingInfo.Take(unit);
                 break;
             default:
                 break;
@@ -106,11 +106,11 @@ public class BuildingPlace : MonoBehaviour, IInteractable
         boxCollider.size = new Vector2(1f,1f - playersHeight);
         boxCollider.offset = new Vector2(0, playersHeight / 2.3f);    
 
-        var typeClass = Type.GetType("Building" + GetNameWithoutWhitespace());
+        var typeClass = Type.GetType("BuildingInfo" + GetNameWithoutWhitespace());
         if (typeClass == null)
             throw new Exception("COULD NOT FIND CLASS");
         
-        _building = Activator.CreateInstance(typeClass, false) as IBuilding;
+        _buildingInfo = Activator.CreateInstance(typeClass, false) as IBuildingInfo;
     }
 
     private void ChangeColor(float r, float g, float b, float a)

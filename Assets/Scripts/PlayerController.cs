@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour, IUnit
                         Debug.Log("Total amount of " + type + " is: " + Resources[type]);
                         break;
                     case "Building":
-                        var buildingScript = nearest.GetComponent(typeof(BuildingPlace)) as BuildingPlace;
+                        var buildingScript = nearest.GetComponent(typeof(BuildingObject)) as BuildingObject;
                         if (buildingScript == null)
                         {
                             Debug.Log("Missing script on Building");
