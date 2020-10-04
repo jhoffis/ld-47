@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour, IUnit
         Resources = new Dictionary<ResourceType, int>();
         _rb2d = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
+
+        Resources.Add(ResourceType.TIMBER, 100);
+        Resources.Add(ResourceType.MONEY, 100);
+        Resources.Add(ResourceType.IRON, 100);
     }
 
     private void Update()
