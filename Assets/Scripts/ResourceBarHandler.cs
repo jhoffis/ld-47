@@ -10,7 +10,7 @@ public class ResourceBarHandler : MonoBehaviour
 {
     // Start is called before the first frame update
     private GameObject panel;
-
+    private Dictionary<ResourceType, GameObject> resources;
 
     void Awake()
     {
@@ -25,11 +25,6 @@ public class ResourceBarHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // TODO: testing
-        if(Input.GetKey(KeyCode.Escape))
-        {
-            AddOrRemoveResourceValueUI(ResourceType.MONEY, 10);
-        }
     }
 
 
@@ -43,13 +38,20 @@ public class ResourceBarHandler : MonoBehaviour
         //resources = new Dictionary<ResourceType, int>();
 
 
+        GameController.Instance.playerController.AddUIUpdate(UpdateText);
+        
+        var playerResources = GameController.Instance.playerController.Resources;
+        resources = new Dictionary<ResourceType, GameObject>();
 
         int i = 0;
-        foreach (KeyValuePair<ResourceType, int> resource in GameController.Instance.playerController.Resources)
+        foreach (KeyValuePair<ResourceType, int> resource in playerResources)
         {
             Debug.Log(resource.Key);
             Debug.Log(resource.Value);
-            AddResourceGameObject(resource.Key.ToString(), resource.Value, i++).transform.SetParent(panel.transform, false);
+            var go = AddResourceGameObject(resource.Key.ToString(), resource.Value, i);
+            go.transform.SetParent(panel.transform, false);
+            resources.Add(resource.Key, go);
+            i++;
         }
     }
 
@@ -88,19 +90,19 @@ public class ResourceBarHandler : MonoBehaviour
 
         // Add Text Object
 
-        GameObject TMP = new GameObject();
+        GameObject childTMP = new GameObject();
 
         // Make Child
-        TMP.transform.SetParent(resourceObject.transform);
+        childTMP.transform.SetParent(resourceObject.transform);
 
         // Add TMP
 
-        TextMeshProUGUI m_textMeshProGUI = TMP.AddComponent<TextMeshProUGUI>();
+        var m_textMeshProGUI = childTMP.AddComponent<TextMeshProUGUI>();
         m_textMeshProGUI.fontSize = 36;
 
         // Position
 
-        RectTransform TMPRect = TMP.GetComponent<RectTransform>();
+        var TMPRect = childTMP.GetComponent<RectTransform>();
         TMPRect.anchoredPosition = new Vector2(150, -8);
 
         // Set Value
@@ -110,19 +112,15 @@ public class ResourceBarHandler : MonoBehaviour
         return resourceObject;
     }
 
-    public void AddOrRemoveResourceValueUI(ResourceType type, int value) //FIXME: Bugged
+    public void UpdateText()
     {
-        String name = type.ToString();
-        GameObject obj = GetResourceObjectByName(name);
-
-        int current = int.Parse(obj.GetComponent<TextMeshProUGUI>().text.ToString());
-        int total = current + value;
-        //Debug.Log(obj.GetComponent<TextMeshProUGUI>().text.ToString());
-        obj.GetComponent<TextMeshProUGUI>().text = total.ToString();
+        var enumerator = GameController.Instance.playerController.Resources.GetEnumerator();
+        do {
+            var text = resources[enumerator.Current.Key].GetComponentInChildren<TextMeshProUGUI>();
+            text.text = enumerator.Current.Value.ToString();
+        }
+        while (enumerator.MoveNext()) ;
+        enumerator.Dispose();
     }
 
-    private GameObject GetResourceObjectByName(String name)
-    {
-        return GameObject.Find(name);
-    }
 }

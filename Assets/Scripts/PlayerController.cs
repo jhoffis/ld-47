@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+delegate void UIUpdater();
 public class PlayerController : MonoBehaviour, IUnit
 {
     private Vector2 _velocity = Vector2.zero;
@@ -12,18 +13,23 @@ public class PlayerController : MonoBehaviour, IUnit
     public int speed;
 
     public Dictionary<ResourceType, int> Resources;
-
+    private UIUpdater _uiUpdater;
 
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         Resources = new Dictionary<ResourceType, int>();
         _rb2d = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
 
-        Resources.Add(ResourceType.TIMBER, 100);
-        Resources.Add(ResourceType.MONEY, 100);
-        Resources.Add(ResourceType.IRON, 100);
+        Resources.Add(ResourceType.TIMBER, 0);
+        Resources.Add(ResourceType.MONEY, 0);
+        Resources.Add(ResourceType.IRON, 0);
+    }
+
+    public void AddUIUpdate(Action action)
+    {
+        _uiUpdater += new UIUpdater(action);
     }
 
     private void Update()
@@ -59,6 +65,8 @@ public class PlayerController : MonoBehaviour, IUnit
                         var type = script.GetType();
                         if (!Resources.ContainsKey(type)) Resources.Add(type, 0);
                         Resources[type] += script.Collect();
+                        _uiUpdater.Invoke();
+                        
                         Debug.Log("Total amount of " + type + " is: " + Resources[type]);
                         break;
                     case "Building":
@@ -115,6 +123,7 @@ public class PlayerController : MonoBehaviour, IUnit
         if (!Resources.ContainsKey(resourceType)) return 0;
         if (Resources[resourceType] + amount < 0) Resources[resourceType] = 0;
         else Resources[resourceType] += amount;
+        _uiUpdater.Invoke();
         return Resources[resourceType];
     }
 }
