@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.WSA.Input;
@@ -16,6 +17,7 @@ public class BuildingPlace : MonoBehaviour, IInteractable
     private bool interact;
     private SpriteRenderer renderer;
     private IBuilding _building;
+    private Color originalColor;
 
     public void Init(int type)
     {
@@ -28,6 +30,13 @@ public class BuildingPlace : MonoBehaviour, IInteractable
         if (sprite == null)
             throw new Exception("COULD NOT FIND SPRITE: " + path);
         renderer.sprite = sprite;
+        
+        Color tmp = gameObject.GetComponent<SpriteRenderer>().color;
+        originalColor = new Color(tmp.r, tmp.g, tmp.b, tmp.a);
+        ChangeColor(1f, 1f, 1f, 0.6f);
+
+        gameObject.layer = 5;
+        renderer.sortingOrder = 2;
     }
     
 
@@ -36,6 +45,8 @@ public class BuildingPlace : MonoBehaviour, IInteractable
         if (!interact)
         {
             var mPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mPos.x = (float) Math.Round(mPos.x);
+            mPos.y = (float) Math.Round(mPos.y);
             transform.position = new Vector3(mPos.x, mPos.y, 0);
 
             //Place om høyre knapp er nede
@@ -87,6 +98,10 @@ public class BuildingPlace : MonoBehaviour, IInteractable
     private void TurnInteractable()
     {
         interact = true;
+        gameObject.layer = 0;
+        renderer.sortingOrder = 0;
+        ChangeColor(1f, 1f, 1f, 1f);
+
         var boxCollider = gameObject.AddComponent<BoxCollider2D>();
         float playersHeight = 0.45f; //FIXME hent ut skikkelig verdi. Dette er slik at spilleren kan "gå helt opp til bygningen"
         boxCollider.size = new Vector2(1f,1f - playersHeight);
@@ -97,6 +112,16 @@ public class BuildingPlace : MonoBehaviour, IInteractable
             throw new Exception("COULD NOT FIND CLASS");
         
         _building = Activator.CreateInstance(typeClass, false) as IBuilding;
+    }
+
+    private void ChangeColor(float r, float g, float b, float a)
+    {
+        Color tmp = new Color(originalColor.r, originalColor.g, originalColor.b, originalColor.a);
+        tmp.r *= r;
+        tmp.g *= g;
+        tmp.b *= b;
+        tmp.a *= a;
+        gameObject.GetComponent<SpriteRenderer>().color = tmp;
     }
 
 }

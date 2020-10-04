@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BuildingTimberHouse : IBuilding
 {
+    private int maxCapacity = 100;
+    private int amount = 0;
     public void Give(IUnit unit)
     {
         throw new System.NotImplementedException();
