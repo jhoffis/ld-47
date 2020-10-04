@@ -11,13 +11,13 @@ public class PlayerController : MonoBehaviour, IUnit
 
     public int speed;
 
-    public Dictionary<string, int> Resources;
+    public Dictionary<ResourceType, int> Resources;
 
 
     // Start is called before the first frame update
     private void Start()
     {
-        Resources = new Dictionary<string, int>();
+        Resources = new Dictionary<ResourceType, int>();
         _rb2d = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
     }
@@ -43,13 +43,13 @@ public class PlayerController : MonoBehaviour, IUnit
                             return;
                         }
 
-                        var type = script.GetType().ToString();
+                        var type = script.GetType();
                         if (!Resources.ContainsKey(type)) Resources.Add(type, 0);
                         Resources[type] += script.Collect();
                         Debug.Log("Total amount of " + type + " is: " + Resources[type]);
                         break;
                     case "Building":
-                        var buildingScript = nearest.GetComponent(typeof(BuildingPlace)) as BuildingPlace;
+                        var buildingScript = nearest.GetComponent(typeof(BuildingObject)) as BuildingObject;
                         if (buildingScript == null)
                         {
                             Debug.Log("Missing script on Building");
@@ -99,6 +99,9 @@ public class PlayerController : MonoBehaviour, IUnit
 
     public int addResource(ResourceType resourceType, int amount)
     {
-        throw new NotImplementedException();
+        if (!Resources.ContainsKey(resourceType)) return 0;
+        if (Resources[resourceType] - amount < 0) Resources[resourceType] = 0;
+        else Resources[resourceType] += amount;
+        return Resources[resourceType];
     }
 }

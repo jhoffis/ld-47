@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SelectBuilding : MonoBehaviour
 {
-    public BuildingPlace building; // referance point
+    public BuildingObject building; // referance point
     private Button button;
     
     // Start is called before the first frame update
