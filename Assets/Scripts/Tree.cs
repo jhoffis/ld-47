@@ -58,6 +58,7 @@ public class Tree : MonoBehaviour, IResource
 
         if (treeState != TreeState.Grown) return 0;
         treeState = TreeState.ChoppedDown;
+        Destroy(gameObject.GetComponent<BoxCollider2D>());
         _spriteRenderer.sprite = treeSprites[2];
         return Random.Range(3, 5);
     }
