@@ -20,8 +20,8 @@ public class CameraHandler : MonoBehaviour
     private void Update()
     {
         HandleMouse();
+        HandleKeyboard();
     }
-
 
     private void HandleMouse()
     {
@@ -37,6 +37,36 @@ public class CameraHandler : MonoBehaviour
         }
     }
 
+    private void HandleKeyboard()
+    {
+        bool moved = false;
+        Vector3 pos = _cam.transform.position;
+        float strength = PanSpeed / 5f * Time.deltaTime;
+        if (Input.GetKey(KeyCode.K))
+        {
+            pos.y += strength;
+            moved = true;
+        } 
+        if (Input.GetKey(KeyCode.J))
+        {
+            pos.y -= strength;
+            moved = true;
+        }
+        if (Input.GetKey(KeyCode.L))
+        {
+            pos.x += strength;
+            moved = true;
+        }
+        if (Input.GetKey(KeyCode.H))
+        {
+            pos.x -= strength;
+            moved = true;
+        }
+    
+        if (moved)
+            _cam.transform.position = EnsureBounds(pos);
+    }
+
     private void PanCamera(Vector3 newPanPosition)
     {
         // Determine how much to move the camera
@@ -47,12 +77,16 @@ public class CameraHandler : MonoBehaviour
         transform.Translate(move, Space.World);
 
         // Ensure the camera remains within bounds.
-        Vector3 pos = transform.position;
-        pos.x = Mathf.Clamp(pos.x, BoundsX[0], BoundsX[1]);
-        pos.y = Mathf.Clamp(pos.y, BoundsY[0], BoundsY[1]);
-        transform.position = pos;
+        transform.position = EnsureBounds(transform.position);
 
         // Cache the position
         _lastPanPosition = newPanPosition;
+    }
+
+    private Vector3 EnsureBounds(Vector3 pos)
+    {
+        pos.x = Mathf.Clamp(pos.x, BoundsX[0], BoundsX[1]);
+        pos.y = Mathf.Clamp(pos.y, BoundsY[0], BoundsY[1]);
+        return pos;
     }
 }
