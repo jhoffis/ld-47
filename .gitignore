@@ -71,11 +71,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 */.idea/*
-*/.idea/workspace.xml
-*/.idea/tasks.xml
-*/.idea/.idea.ld-47/.idea/contentModel.xml
-*/.idea/.idea.ld-47/.idea/workspace.xml
-.idea/.idea.ld-47/.idea/contentModel.xml
-.idea/.idea.ld-47/.idea/workspace.xml
-
 
