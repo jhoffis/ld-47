@@ -8,12 +8,19 @@ public class BuildingInfoTimberHouse : IBuildingInfo
     private int amount = 0;
     public void Give(IUnit unit)
     {
-        unit.addResource(ResourceType.TIMBER, -10);
-        amount += 10;
+        int gives = 1;
+        if (amount + gives > maxCapacity)
+            gives = maxCapacity - amount;
+        Debug.Log(unit.addResource(ResourceType.TIMBER, -gives));
+        amount += gives;
     }
 
     public void Take(IUnit unit)
     {
-        throw new System.NotImplementedException();
+        int takes = 1;
+        if (amount - takes < 0)
+            takes = amount;
+        Debug.Log(unit.addResource(ResourceType.TIMBER, takes));
+        amount -= takes;
     }
 }
