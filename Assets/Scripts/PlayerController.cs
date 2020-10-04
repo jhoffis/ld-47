@@ -109,8 +109,9 @@ public class PlayerController : MonoBehaviour, IUnit
     public int addResource(ResourceType resourceType, int amount)
     {
         if (!Resources.ContainsKey(resourceType)) return 0;
-        if (Resources[resourceType] - amount < 0) Resources[resourceType] = 0;
+        if (Resources[resourceType] + amount < 0) Resources[resourceType] = 0;
         else Resources[resourceType] += amount;
         return Resources[resourceType];
     }
 }
+
