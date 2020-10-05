@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using TMPro;
-using TMPro.EditorUtilities;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.XR.WSA.Input;
-using Debug = UnityEngine.Debug;
 
 public class BuildingObject : MonoBehaviour, IInteractable
 {
