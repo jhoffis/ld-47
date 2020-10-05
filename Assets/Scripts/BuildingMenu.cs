@@ -19,9 +19,9 @@ public class BuildingMenu : MonoBehaviour
         
         for (int i = 0; i < buildingButtons.Length; i++)
         {
-            var pos = new Vector3(100, 205 - (45 * i), 0); //FIXME Weird plassering som ikke er intuitiv i forhold til disse tallene
+            var pos = new Vector2(transform.position.x, 200 + transform.position.y + (i * (-40))); 
             buildingButtons[i] = Instantiate(buildingButton, pos, Quaternion.identity);
-            buildingButtons[i].transform.parent = gameObject.transform;
+            buildingButtons[i].transform.parent = transform;
             buildingButtons[i].GetComponent<SelectBuilding>().BuildingType = i;
             buildingButtons[i].GetComponentInChildren<TMP_Text>().text = BuildingObject.BuildingNames[i];
         }
