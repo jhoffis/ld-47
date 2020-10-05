@@ -52,15 +52,13 @@ public class Tree : MonoBehaviour, IResource
     }
 
 
-    public int Collect()
+    public int Collect(int gatherSpeed)
     {
-        Debug.Log("Am being interacted with");
-
         if (treeState != TreeState.Grown) return 0;
         treeState = TreeState.ChoppedDown;
         Destroy(gameObject.GetComponent<BoxCollider2D>());
         _spriteRenderer.sprite = treeSprites[2];
-        return Random.Range(3, 5);
+        return gatherSpeed + Random.Range(0, 2);
     }
 }
 

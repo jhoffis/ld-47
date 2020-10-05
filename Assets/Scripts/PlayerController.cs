@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour, IUnit
     private Animator _anim;
 
     public int speed;
-
+    public int GatherSpeed;
+    
     public Dictionary<ResourceType, int> Resources;
     private UIUpdater _uiUpdater;
 
@@ -65,7 +66,7 @@ public class PlayerController : MonoBehaviour, IUnit
 
                         var type = script.GetType();
                         if (!Resources.ContainsKey(type)) Resources.Add(type, 0);
-                        Resources[type] += script.Collect();
+                        Resources[type] += script.Collect(GatherSpeed);
                         _uiUpdater.Invoke();
                         
                         Debug.Log("Total amount of " + type + " is: " + Resources[type]);

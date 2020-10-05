@@ -6,9 +6,9 @@ public interface IResource
 {
     ResourceType GetType();
 
-    int Collect();
+    int Collect(int gatherSpeed);
 }
 public enum ResourceType
 {
-    Timber, Iron, Gold, Food, Wool
+    Timber, Iron, Gold
 }
