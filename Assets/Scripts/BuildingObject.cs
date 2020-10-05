@@ -55,6 +55,9 @@ public class BuildingObject : MonoBehaviour, IInteractable
             {
                 Debug.Log("place");
                 TurnInteractable();
+            } else if (Input.GetKey(KeyCode.Escape))
+            {
+                Destroy(gameObject);
             }
         }
     }
@@ -109,6 +112,23 @@ public class BuildingObject : MonoBehaviour, IInteractable
     
     private void TurnInteractable()
     {
+        var typeClass = Type.GetType("BuildingInfo" + GetNameWithoutWhitespace());
+        if (typeClass == null)
+            throw new Exception("COULD NOT FIND CLASS");
+        
+        _buildingInfo = Activator.CreateInstance(typeClass, false) as IBuildingInfo;
+
+        if (!_buildingInfo.CanAffordBuilding())
+        {
+            _buildingInfo = null;
+            return;
+        }
+        else
+        {
+            _buildingInfo.BuyBuilding();
+            GameController.Instance.playerController.InvokeUIUpdate();
+        }
+        
         interact = true;
         gameObject.layer = 0;
         renderer.sortingOrder = 0;
@@ -120,12 +140,6 @@ public class BuildingObject : MonoBehaviour, IInteractable
         boxCollider.size = new Vector2(1f,1f - playersHeight);
         boxCollider.offset = new Vector2(0, playersHeight / 2.3f);    
 
-        var typeClass = Type.GetType("BuildingInfo" + GetNameWithoutWhitespace());
-        if (typeClass == null)
-            throw new Exception("COULD NOT FIND CLASS");
-        
-        _buildingInfo = Activator.CreateInstance(typeClass, false) as IBuildingInfo;
-        
         gameObject.GetComponent<AudioSource>().Play();
         gameObject.SetActive(gameObject.transform.GetChild(0));
         UpdateText();

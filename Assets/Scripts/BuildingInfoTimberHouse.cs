@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class BuildingInfoTimberHouse : IBuildingInfo
 {
+    public static readonly int BuildingCost = 10;
+    
     private int _maxCapacity = 20;
     private int _amountResource = 0;
     private int _gold;
     private int _transferSpeed = 2;
+    
     public void Give(IUnit unit)
     {
         if (_amountResource > _maxCapacity) return;
@@ -58,6 +61,16 @@ public class BuildingInfoTimberHouse : IBuildingInfo
     public string GetInfo()
     {
         return _amountResource + "/" + _maxCapacity + "\n" + _gold + "GOLD";
+    }
+
+    public bool CanAffordBuilding()
+    {
+        return GameController.Instance.playerController.Resources[ResourceType.Timber] >= BuildingCost;
+    }
+
+    public void BuyBuilding()
+    {
+        GameController.Instance.playerController.Resources[ResourceType.Timber] -= BuildingCost;
     }
 
     public ResourceType GetResourceType()

@@ -9,5 +9,7 @@ public interface IBuildingInfo
     void Take(IUnit unit);
     bool IsBroken();
     string GetInfo();
+    bool CanAffordBuilding();
+    void BuyBuilding();
     ResourceType GetResourceType();
 }

@@ -27,11 +27,18 @@ public class PlayerController : MonoBehaviour, IUnit
         {
             Resources.Add(resourceType, 0);
         }
+        
+        Resources[ResourceType.Timber] = BuildingInfoTimberHouse.BuildingCost;
     }
 
     public void AddUIUpdate(Action action)
     {
         _uiUpdater += new UIUpdater(action);
+    }
+
+    public void InvokeUIUpdate()
+    {
+        _uiUpdater.Invoke();
     }
 
     private void Update()
