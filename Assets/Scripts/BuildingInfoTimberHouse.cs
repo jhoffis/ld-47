@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuildingInfoTimberHouse : IBuildingInfo
 {
-    private int _maxCapacity = 100;
+    private int _maxCapacity = 20;
     private int _amountResource = 0;
     private int _gold;
     private int _transferSpeed = 2;
@@ -12,7 +12,7 @@ public class BuildingInfoTimberHouse : IBuildingInfo
     {
         if (_amountResource > _maxCapacity) return;
         
-        _amountResource += unit.addResource(ResourceType.Timber, -_transferSpeed);
+        _amountResource += -unit.addResource(ResourceType.Timber, -_transferSpeed);
         Debug.Log(_amountResource);
     }
 

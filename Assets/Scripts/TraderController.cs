@@ -18,6 +18,7 @@ public class TraderController : MonoBehaviour, IUnit
     private float speed;
 
     private bool hasInteracted = false;
+    private long _interactAgain;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +49,15 @@ public class TraderController : MonoBehaviour, IUnit
         {
             if ((((int) _timer) / 10) % 3 == 0)
             {
+                if (hasInteracted && _interactAgain == 0)
+                {
+                    _interactAgain = GameController.Instance.Now() + 2000 + GameController.Instance.Ran.Next(1000);
+                }
+                else if (_interactAgain != 0 && _interactAgain < GameController.Instance.Now())
+                {
+                    hasInteracted = false;
+                    _interactAgain = 0;
+                }
                 // Look for buildings
                 var results = new Collider2D[10];
                 var size = Physics2D.OverlapCircleNonAlloc(this.transform.position, 1, results);
@@ -125,6 +135,6 @@ public class TraderController : MonoBehaviour, IUnit
 
     public int addResource(ResourceType resourceType, int amount)
     {
-        return 5;
+        return 3;
     }
 }

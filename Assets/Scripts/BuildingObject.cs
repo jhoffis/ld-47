@@ -59,11 +59,12 @@ public class BuildingObject : MonoBehaviour, IInteractable
         }
     }
 
-    public void Create(int type)
+    public BuildingObject Create(int type)
     {
         var newOne = Instantiate(this, new Vector3(0, 0, 0), Quaternion.identity);
         newOne.Init(type);
         Debug.Log("Check building id: " + newOne.Equals(this));
+        return newOne;
     }
 
     public IBuildingInfo GetBuildingInfo()
@@ -102,6 +103,11 @@ public class BuildingObject : MonoBehaviour, IInteractable
             .ToArray());
     }
 
+    public bool IsInteractable()
+    {
+        return interact;
+    }
+    
     private void TurnInteractable()
     {
         interact = true;
@@ -123,7 +129,6 @@ public class BuildingObject : MonoBehaviour, IInteractable
         
         gameObject.SetActive(gameObject.transform.GetChild(0));
         UpdateText();
-        GameController.Instance.playerController.AddUIUpdate(UpdateText);
     }
 
     private void UpdateText()

@@ -125,11 +125,15 @@ public class PlayerController : MonoBehaviour, IUnit
 
     public int addResource(ResourceType resourceType, int amount)
     {
-        if (!Resources.ContainsKey(resourceType)) return 0;
-        if (Resources[resourceType] + amount < 0) Resources[resourceType] = 0;
+        int res = amount;
+        if (Resources[resourceType] + amount < 0)
+        {
+            res = -Resources[resourceType];
+            Resources[resourceType] = 0;
+        }
         else Resources[resourceType] += amount;
         _uiUpdater.Invoke();
-        return Resources[resourceType];
+        return res;
     }
 }
 

@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
 
     private long _nextTreeTime;
 
-    private Random ran = new Random();
+    public Random Ran = new Random();
     private void Awake()
     {
         if (Instance == null)
@@ -34,15 +34,20 @@ public class GameController : MonoBehaviour
 
     private void GenerateResources()
     {
-        long now = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+        long now = Now();
         if (_nextTreeTime > now) return;
 
-        _nextTreeTime = now + 5000 + ran.Next(5000);
+        _nextTreeTime = now + 5000 + Ran.Next(5000);
         
         var tree = Instantiate (Resources.Load ("Prefabs/Tree") as GameObject);
         // plasser på en ledig plass tilfeldig.
         int size = 32;
-        tree.transform.position = new Vector3(ran.Next(size) - size / 2, ran.Next(size) - size / 2);
+        tree.transform.position = new Vector3(Ran.Next(size) - size / 2, Ran.Next(size) - size / 2);
         Debug.Log("Tree spawned at " + tree.transform.position.ToString());
+    }
+
+    public long Now()
+    {
+        return DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
     }
 }
