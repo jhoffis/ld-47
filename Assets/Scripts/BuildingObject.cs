@@ -87,6 +87,7 @@ public class BuildingObject : MonoBehaviour, IInteractable
             default:
                 break;
         }
+        UpdateText();
     }
 
     public string GetName()
