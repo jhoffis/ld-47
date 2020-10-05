@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour, IUnit
     private Animator _anim;
 
     public int speed;
-    public int GatherSpeed;
+    public int GatherSpeed = 3;
     
     public Dictionary<ResourceType, int> Resources;
     private UIUpdater _uiUpdater;
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour, IUnit
                         if (!Resources.ContainsKey(type)) Resources.Add(type, 0);
                         Resources[type] += script.Collect(GatherSpeed);
                         _uiUpdater.Invoke();
-                        
+
                         Debug.Log("Total amount of " + type + " is: " + Resources[type]);
                         break;
                     case "Building":
@@ -79,9 +79,16 @@ public class PlayerController : MonoBehaviour, IUnit
                             return;
                         }
 
-                        var interactType = (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-                            ? InteractType.TAKE
-                            : InteractType.GIVE;
+                        var interactType = InteractType.GIVE;
+                        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                        {
+                            gameObject.GetComponents<AudioSource>()[1].Play();
+                            interactType = InteractType.TAKE;
+                        }
+                        else
+                        {
+                            gameObject.GetComponents<AudioSource>()[0].Play();
+                        }
                         
                         buildingScript.Interact(this, interactType);
 

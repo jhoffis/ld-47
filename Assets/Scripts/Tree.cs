@@ -58,6 +58,7 @@ public class Tree : MonoBehaviour, IResource
         treeState = TreeState.ChoppedDown;
         Destroy(gameObject.GetComponent<BoxCollider2D>());
         _spriteRenderer.sprite = treeSprites[2];
+        gameObject.GetComponent<AudioSource>().Play();
         return gatherSpeed + Random.Range(0, 2);
     }
 }

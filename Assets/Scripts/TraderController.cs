@@ -75,7 +75,7 @@ public class TraderController : MonoBehaviour, IUnit
                             if (script != null)
                             {
                                 script.Interact(this, InteractType.TAKE);
-                                Debug.Log("Did something");
+                                gameObject.GetComponent<AudioSource>().Play();
                                 hasInteracted = true;
                             }
                         }

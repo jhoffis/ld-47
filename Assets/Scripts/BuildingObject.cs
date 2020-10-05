@@ -63,7 +63,6 @@ public class BuildingObject : MonoBehaviour, IInteractable
     {
         var newOne = Instantiate(this, new Vector3(0, 0, 0), Quaternion.identity);
         newOne.Init(type);
-        Debug.Log("Check building id: " + newOne.Equals(this));
         return newOne;
     }
 
@@ -127,6 +126,7 @@ public class BuildingObject : MonoBehaviour, IInteractable
         
         _buildingInfo = Activator.CreateInstance(typeClass, false) as IBuildingInfo;
         
+        gameObject.GetComponent<AudioSource>().Play();
         gameObject.SetActive(gameObject.transform.GetChild(0));
         UpdateText();
     }
