@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using TMPro;
 using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -23,7 +24,7 @@ public class BuildingObject : MonoBehaviour, IInteractable
     {
         this.type = type;
         interact = false;
-        renderer = gameObject.AddComponent<SpriteRenderer>();
+        renderer = gameObject.GetComponent<SpriteRenderer>();
 
         string path = "Sprites/building" + type;
         Sprite sprite = Resources.Load<Sprite>(path);
@@ -31,7 +32,7 @@ public class BuildingObject : MonoBehaviour, IInteractable
             throw new Exception("COULD NOT FIND SPRITE: " + path);
         renderer.sprite = sprite;
         
-        Color tmp = gameObject.GetComponent<SpriteRenderer>().color;
+        Color tmp = renderer.color;
         originalColor = new Color(tmp.r, tmp.g, tmp.b, tmp.a);
         ChangeColor(1f, 1f, 1f, 0.6f);
 
@@ -118,6 +119,15 @@ public class BuildingObject : MonoBehaviour, IInteractable
             throw new Exception("COULD NOT FIND CLASS");
         
         _buildingInfo = Activator.CreateInstance(typeClass, false) as IBuildingInfo;
+        
+        gameObject.SetActive(gameObject.transform.GetChild(0));
+        UpdateText();
+        GameController.Instance.playerController.AddUIUpdate(UpdateText);
+    }
+
+    private void UpdateText()
+    {
+        gameObject.GetComponentInChildren<TMP_Text>().text = _buildingInfo.GetInfo();
     }
 
     private void ChangeColor(float r, float g, float b, float a)

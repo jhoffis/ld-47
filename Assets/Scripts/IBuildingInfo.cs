@@ -8,5 +8,6 @@ public interface IBuildingInfo
     void Give(IUnit unit);
     void Take(IUnit unit);
     bool IsBroken();
+    string GetInfo();
     ResourceType GetResourceType();
 }

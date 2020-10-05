@@ -55,6 +55,11 @@ public class BuildingInfoTimberHouse : IBuildingInfo
         return _maxCapacity <= 0;
     }
 
+    public string GetInfo()
+    {
+        return _amountResource + "/" + _maxCapacity + "\n" + _gold + "GOLD";
+    }
+
     public ResourceType GetResourceType()
     {
         return ResourceType.Timber;
