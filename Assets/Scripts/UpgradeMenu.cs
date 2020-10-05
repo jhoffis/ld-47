@@ -38,7 +38,7 @@ public class UpgradeMenu : MonoBehaviour
         
         for (int i = 0; i < _upgradeNames.Length; i++)
         {
-            var pos = new Vector2(610, 600 - (i * (-100)));
+            var pos = new Vector2(410, 650 - (i * (-100)));
             // var pos = new Vector2(upgradeButton.transform.position.x, upgradeButton.transform.position.y);
             upgradeButtons[i] = Instantiate(upgradeButton, pos, Quaternion.identity);
             upgradeButtons[i].transform.parent = transform;
