@@ -21,7 +21,9 @@ public class SelectBuilding : MonoBehaviour
     void PlaceBuildingOnMouse()
     {
         if (_buildingObjectToPlace != null && _buildingObjectToPlace.IsInteractable() == false)
-            Destroy(_buildingObjectToPlace);
+        {
+            _buildingObjectToPlace.Destroy();
+        }
         _buildingObjectToPlace = _buildingReference.Create(BuildingType); // FIXME add more buildings than just one
     }
 

@@ -69,6 +69,11 @@ public class BuildingObject : MonoBehaviour, IInteractable
         return newOne;
     }
 
+    public void Destroy()
+    {
+        Destroy(gameObject);
+    }
+
     public IBuildingInfo GetBuildingInfo()
     {
         return _buildingInfo;

@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour, IUnit
             transform.localScale = new Vector3(1, 1, 1);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             // Find all interactable objects nearby
             var nearest = FindNearbyObjects();

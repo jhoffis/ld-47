@@ -21,6 +21,12 @@ public class CameraHandler : MonoBehaviour
     {
         HandleMouse();
         HandleKeyboard();
+        
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            var pos = GameController.Instance.playerController.transform.position;
+            transform.position = new Vector3(pos.x, pos.y, transform.position.z);
+        }
     }
 
     private void HandleMouse()
